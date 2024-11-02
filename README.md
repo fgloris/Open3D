@@ -47,6 +47,15 @@ together to enable full end to end pipelines:
 
 For more, please visit the [Open3D documentation](https://www.open3d.org/docs).
 
+# 环境搭建(ubuntu)
+-   sudo apt install libc++-14-dev && sudo apt install libc++abi-14-dev
+-   cmake 3.24以上,去官网下载zip包,直接运行里面的二进制文件,不会影响原有环境
+
+### 编译
+-   mkdir build && cd build
+-   /path/to/cmake3.24+/bin/cmake ..
+-   make -j8
+
 ## Python quick start
 
 Pre-built pip packages support Ubuntu 20.04+, macOS 10.15+ and Windows 10+

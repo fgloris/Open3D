@@ -1111,6 +1111,10 @@ bool TriangleMesh::IsOrientable() const {
     return OrientTriangleHelper(triangles_, NoOp);
 }
 
+bool TriangleMesh::IsClosed() const {
+    return true;
+}
+
 bool TriangleMesh::IsWatertight() const {
     return IsEdgeManifold(false) && IsVertexManifold() && !IsSelfIntersecting();
 }

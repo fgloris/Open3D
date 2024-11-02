@@ -260,6 +260,8 @@ public:
     /// edges, but not self-intersecting.
     bool IsWatertight() const;
 
+    bool IsClosed() const;
+
     /// If the mesh is orientable then this function rearranges the
     /// triangles such that all normals point towards the
     /// outside/inside.
@@ -506,6 +508,23 @@ public:
     /// points.
     /// \return TriangleMesh of the alpha shape.
     static std::shared_ptr<TriangleMesh> CreateFromPointCloudAlphaShape(
+            const PointCloud &pcd,
+            double alpha,
+            std::shared_ptr<TetraMesh> tetra_mesh = nullptr,
+            std::vector<size_t> *pt_map = nullptr);
+
+    /// \brief Alpha shapes are a generalization of the convex hull. With
+    /// decreasing alpha value the shape schrinks and creates cavities.
+    /// See Edelsbrunner and Muecke, "Three-Dimensional Alpha Shapes", 1994.
+    /// \param pcd PointCloud for what the alpha shape should be computed.
+    /// \param alpha parameter to control the shape. A very big value will
+    /// give a shape close to the convex hull.
+    /// \param tetra_mesh If not a nullptr, then uses this to construct the
+    /// alpha shape. Otherwise, ComputeDelaunayTetrahedralization is called.
+    /// \param pt_map Optional map from tetra_mesh vertex indices to pcd
+    /// points.
+    /// \return TriangleMesh of the alpha shape.
+    static std::shared_ptr<TriangleMesh> CreateFromPointCloudAlphaShapeWatertight(
             const PointCloud &pcd,
             double alpha,
             std::shared_ptr<TetraMesh> tetra_mesh = nullptr,

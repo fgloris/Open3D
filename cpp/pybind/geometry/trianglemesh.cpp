@@ -319,6 +319,24 @@ void pybind_trianglemesh_definitions(py::module &m) {
                         "\"Three-Dimensional Alpha Shapes\", 1994.",
                         "pcd"_a, "alpha"_a, "tetra_mesh"_a, "pt_map"_a)
             .def_static(
+                    "create_from_point_cloud_alpha_shape_watertight",
+                    [](const PointCloud &pcd, double alpha) {
+                        return TriangleMesh::CreateFromPointCloudAlphaShapeWatertight(
+                                pcd, alpha);
+                    },
+                    "Alpha shapes are a generalization of the convex hull. "
+                    "With decreasing alpha value the shape schrinks and "
+                    "creates cavities. See Edelsbrunner and Muecke, "
+                    "\"Three-Dimensional Alpha Shapes\", 1994.",
+                    "pcd"_a, "alpha"_a)
+            .def_static("create_from_point_cloud_alpha_shape_watertight",
+                        &TriangleMesh::CreateFromPointCloudAlphaShapeWatertight,
+                        "Alpha shapes are a generalization of the convex hull. "
+                        "With decreasing alpha value the shape shrinks and "
+                        "creates cavities. See Edelsbrunner and Muecke, "
+                        "\"Three-Dimensional Alpha Shapes\", 1994.",
+                        "pcd"_a, "alpha"_a, "tetra_mesh"_a, "pt_map"_a)
+            .def_static(
                     "create_from_point_cloud_ball_pivoting",
                     &TriangleMesh::CreateFromPointCloudBallPivoting,
                     "Function that computes a triangle mesh from a oriented "
@@ -643,6 +661,19 @@ void pybind_trianglemesh_definitions(py::module &m) {
               "regularization term."}});
     docstring::ClassMethodDocInject(
             m, "TriangleMesh", "create_from_point_cloud_alpha_shape",
+            {{"pcd",
+              "PointCloud from which the TriangleMesh surface is "
+              "reconstructed."},
+             {"alpha",
+              "Parameter to control the shape. A very big value will give a "
+              "shape close to the convex hull."},
+             {"tetra_mesh",
+              "If not None, than uses this to construct the alpha shape. "
+              "Otherwise, TetraMesh is computed from pcd."},
+             {"pt_map",
+              "Optional map from tetra_mesh vertex indices to pcd points."}});
+    docstring::ClassMethodDocInject(
+            m, "TriangleMesh", "create_from_point_cloud_alpha_shape_watertight",
             {{"pcd",
               "PointCloud from which the TriangleMesh surface is "
               "reconstructed."},

@@ -24,6 +24,7 @@ target_sources(geometry PRIVATE
     RGBDImage.cpp
     RGBDImageFactory.cpp
     SurfaceReconstructionAlphaShape.cpp
+    SurfaceReconstructionAlphaShapeWatertight.cpp
     SurfaceReconstructionBallPivoting.cpp
     SurfaceReconstructionPoisson.cpp
     TetraMesh.cpp
